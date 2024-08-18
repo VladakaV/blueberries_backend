@@ -23,4 +23,15 @@ public class UserRestController {
         userService.registerUser(user.getLogin(), user.getPassword());
         return ResponseEntity.ok("Пользователь успешно зарегистрирован");
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> loginUser(@RequestBody User user) {
+        User foundUser = userService.findByLogin(user.getLogin());
+        if (foundUser != null && foundUser.getPassword().equals(user.getPassword())) {
+            return ResponseEntity.ok("Вход выполнен успешно");
+        }
+        else {
+            return ResponseEntity.badRequest().body("Неверный логин или пароль");
+        }
+    }
 }
