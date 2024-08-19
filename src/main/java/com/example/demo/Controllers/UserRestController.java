@@ -1,19 +1,25 @@
 package com.example.demo.Controllers;
 
+import com.example.demo.Entity.Item;
+import com.example.demo.Entity.Marks;
 import com.example.demo.Entity.User;
+import com.example.demo.Services.ItemService;
+import com.example.demo.Services.MarksService;
 import com.example.demo.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin(origins = "http://localhost:5173")
 public class UserRestController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private ItemService itemService;
+    @Autowired
+    private MarksService marksService;
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody User user) {
@@ -33,5 +39,15 @@ public class UserRestController {
         else {
             return ResponseEntity.badRequest().body("Неверный логин или пароль");
         }
+    }
+
+    @GetMapping("/fetchItems")
+    public Iterable<Item> fetchItems() {
+        return itemService.fetchItems();
+    }
+
+    @GetMapping("/marks")
+    public Iterable<Marks> getMarks() {
+        return marksService.getMarks();
     }
 }

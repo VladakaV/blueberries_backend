@@ -1,10 +1,24 @@
 package com.example.demo.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+
+@Data
+@NoArgsConstructor
+@Getter
+@Setter
+@Table(name = "marks")
 @Entity
 public class Marks {
     @Id
-    Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    private Integer item_id;
+    private Integer rating;
+    private Integer count_marks;
 }
