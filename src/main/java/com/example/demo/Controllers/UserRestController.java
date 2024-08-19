@@ -2,9 +2,11 @@ package com.example.demo.Controllers;
 
 import com.example.demo.Entity.Item;
 import com.example.demo.Entity.Marks;
+import com.example.demo.Entity.Reviews;
 import com.example.demo.Entity.User;
 import com.example.demo.Services.ItemService;
 import com.example.demo.Services.MarksService;
+import com.example.demo.Services.ReviewsService;
 import com.example.demo.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,8 @@ public class UserRestController {
     private ItemService itemService;
     @Autowired
     private MarksService marksService;
+    @Autowired
+    private ReviewsService reviewsService;
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody User user) {
@@ -49,5 +53,10 @@ public class UserRestController {
     @GetMapping("/marks")
     public Iterable<Marks> getMarks() {
         return marksService.getMarks();
+    }
+
+    @GetMapping("/reviews")
+    public Iterable<Reviews> getReviews() {
+        return reviewsService.findAll();
     }
 }
