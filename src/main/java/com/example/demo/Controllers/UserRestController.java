@@ -8,8 +8,10 @@ import com.example.demo.Services.ItemService;
 import com.example.demo.Services.MarksService;
 import com.example.demo.Services.ReviewsService;
 import com.example.demo.Services.UserService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -58,5 +60,15 @@ public class UserRestController {
     @GetMapping("/reviews")
     public Iterable<Reviews> getReviews() {
         return reviewsService.findAll();
+    }
+
+    @PostMapping("/saveReview")
+    public ResponseEntity<String> saveReview(@RequestBody Reviews review) {
+        if (reviewsService.saveReview(review)!= null) {
+            return ResponseEntity.ok().body("Комментарий сохранен");
+        }
+        else {
+            return ResponseEntity.badRequest().body("Комментарий не сохранен");
+        }
     }
 }
