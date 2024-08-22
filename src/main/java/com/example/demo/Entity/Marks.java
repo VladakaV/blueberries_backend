@@ -18,7 +18,8 @@ public class Marks {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Integer item_id;
+    @Column(name = "item_id")
+    private Integer itemId;
     private Integer rating;
     private Integer count_marks;
 }
